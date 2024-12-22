@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaCkEd By FaNo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .moving-frame {
+            position: absolute;
+            text-align: center;
+            transition: all 1s ease;
+        }
+
+        .moving-frame img {
+            width: 300px;
+            height: auto;
+        }
+
+        .moving-frame h1 {
+            font-size: 50px;
+            margin: 10px 0 0;
+            color: green;
+        }
+
+        .moving-frame p {
+            font-size: 20px;
+            margin: 5px 0;
+            color: green;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .watermark span {
+            position: absolute;
+            font-size: 10px;
+            color: green;
+            opacity: 0.1;
+            transform: rotate(-30deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="moving-frame" id="movingFrame">
+        <img src="your-image.png" alt="HaCkEd Image">
+        <h1>HaCkEd By FaNo</h1>
+        <p>امرهم واضرب الزعلان بالراضي<br>
+        نمايم القوم ما داست طرف ثوبي</p>
+    </div>
+
+    <div class="watermark" id="watermark"></div>
+
+    <script>
+        const watermarkContainer = document.getElementById('watermark');
+        const watermarkText = 'FANO';
+        const step = 100;
+
+        for (let y = 0; y < window.innerHeight; y += step) {
+            for (let x = 0; x < window.innerWidth; x += step) {
+                const span = document.createElement('span');
+                span.textContent = watermarkText;
+                span.style.top = `${y}px`;
+                span.style.left = `${x}px`;
+                watermarkContainer.appendChild(span);
+            }
+        }
+
+        const movingFrame = document.getElementById('movingFrame');
+        const frames = [
+            { top: '10%', left: '85%' }, // Top right
+            { top: '85%', left: '85%' }, // Bottom right
+            { top: '85%', left: '50%', transform: 'translateX(-50%)' }, // Bottom center
+            { top: '85%', left: '10%' }, // Bottom left
+            { top: '10%', left: '10%' }  // Top left
+        ];
+
+        let currentFrame = 0;
+
+        function moveFrame() {
+            const frame = frames[currentFrame];
+            Object.assign(movingFrame.style, frame);
+            currentFrame = (currentFrame + 1) % frames.length;
+        }
+
+        setInterval(moveFrame, 2000); // Change frame every 2 seconds
+
+        moveFrame(); // Start the animation
+    </script>
+</body>
+</html>
